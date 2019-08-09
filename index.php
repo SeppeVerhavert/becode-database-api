@@ -8,28 +8,42 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } else {
     echo "connection succesfull";
+}
 
-    $title = $_GET['title'];
-    $note = $_POST['note'];
+$title_input = $_GET['title'];
+$note_input = $_POST['note'];
 
-    echo $title;
-    echo $note;
+echo $title_input;
+echo $note_input;
 
-    // PREPARE
+// PREPARE
+$stmt = $conn->prepare("INSERT INTO note_db.note_tb (title, note) VALUES (?, ?)");
+$stmt->bind_param($title, $note);
 
+//  SANITIIZE
+$clean_title = filter_var($title, FILTER_SANITIZE_STRING);
+$clean_note = filter_var($note, FILTER_SANITIZE_STRING);
 
-    //  SANITIIZE
-    $clean_title = filter_var($title, FILTER_SANITIZE_STRING);
-    $clean_note = filter_var($note, FILTER_SANITIZE_STRING);
-    
-    //  VALIDATE
+//  VALIDATE
+if (empty($clean_title)) {
+    echo "please fill in a title.";
+} else if (!filter_var($clean_title, FILTER_VALIDATE_REGEXP)) {
+    echo "please enter a title with a valid syntax.";
+} else {
+    echo "title is validated";
+}
 
-    $sql = "INSERT INTO note_db.note_tb (title, note)
-    VALUES ('$title', '$note')";
+if (empty($clean_note)) {
+    echo "please fill in a note.";
+} else if (!filter_var($clean_note, FILTER_VALIDATE_REGEXP)) {
+    echo "please enter a note with a valid syntax";
+} else {
+    echo "note is validated.";
+}
 
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
+//  EXECUTE
+if ($conn->query($stmt) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $stmt . "<br>" . $conn->error;
 }
