@@ -15,6 +15,15 @@ if ($conn->connect_error) {
     echo $title;
     echo $note;
 
+    // PREPARE
+
+
+    //  SANITIIZE
+    $clean_title = filter_var($title, FILTER_SANITIZE_STRING);
+    $clean_note = filter_var($note, FILTER_SANITIZE_STRING);
+    
+    //  VALIDATE
+
     $sql = "INSERT INTO note_db.note_tb (title, note)
     VALUES ('$title', '$note')";
 
