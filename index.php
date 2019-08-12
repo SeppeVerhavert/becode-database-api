@@ -1,13 +1,12 @@
 <?php
 include "keys.php";
-$errors = [];
+$feedback = [];
 
 //  Create connection
 $conn = new mysqli($servername, $username, $password);
 //  Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-    $errors['connection'] = "Connection failed";
+    $feedback['connectionError'] = "Connection failed";
 }
 
 //  CREATE SUPERGLOBALS
@@ -31,26 +30,33 @@ try {
 
     //  VALIDATE
     if (empty($clean_title)) {
-        $errors['validate_title'] = "please fill in a title.";
+        $feedback['validate_titleError'] = "please fill in a title.";
+    } else if (strlen($clean_title) > 30) {
+        $feedback['validate_titleError'] = "Title can't be longer than 30 characters.";
     } else {
         $validated_title = $clean_title;
     }
 
     if (empty($clean_note)) {
-        $errors['validate_note'] = "Your note is empty.";
+        $feedback['validate_noteError'] = "Your note is empty.";
     } else {
         $validated_note = $clean_note;
     }
 
     //  EXECUTE
-    $title = $validated_title;
-    $note = $validated_note;
-    $stmt->execute();
+    if (count($feedback) <= 0) {
 
-    echo "New records created successfully";
+        $title = $validated_title;
+        $note = $validated_note;
+        $stmt->execute();
+
+        $feedback['succes'] = "New records created successfully.";
+    }
+} catch (PDOException $e) {
+    $feedback['pdoError'] = $e->getMessage();
 }
-catch(PDOException $e) {
-    echo "Error: " . $e->getMessage();
+
+//  FEEDBACK
+if (count($feedback) > 0) {
+    echo json_encode($feedback);
 }
-    
-$conn = null;
