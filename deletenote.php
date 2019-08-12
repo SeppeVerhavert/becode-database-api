@@ -16,17 +16,17 @@ try {
 
 // ATTEMPT SELECT QUERRY EXECUTION
 try {
-    $sql = "SELECT * FROM $tbname WHERE 'title'=$title_input";
+    //  SELECT
+    $sql = "SELECT * FROM $tbname WHERE title='$title_input'";
     $result = $pdo->query($sql);
     $array_result = [];
-    $i = 0;
 
+    //  REMOVE
     if ($result->rowCount() > 0) {
         while ($row = $result->fetch()) {
             $array_result["title"] = $row['title'];
             $array_result["last_update"] = $row['last_update'];
             $array_result["note"] = $row['note'];
-            $i++;
         }
         print json_encode($array_result);
         unset($result);
