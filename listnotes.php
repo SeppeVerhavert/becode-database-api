@@ -28,8 +28,12 @@ try {
         $feedback['querryError'] = "No records matching your query were found.";
     }
 } catch (PDOException $e) {
-    die("ERROR: Could not able to execute $sql. " . $e->getMessage());
+    $feedback['sqlError'] = $e->getMessage();
 }
 
-// Close connection
+//  FEEDBACK
+if (count($feedback) > 0) {
+    echo json_encode($feedback);
+}
+
 unset($pdo);
