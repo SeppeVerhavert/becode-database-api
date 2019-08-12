@@ -19,8 +19,7 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt = $conn->prepare("INSERT INTO $tbname (title, note)
-    VALUES (:title, :note)");
+    $stmt = $conn->prepare("INSERT INTO $tbname (title, note) VALUES (:title, :note)");
     $stmt->bindParam(':title', $title);
     $stmt->bindParam(':note', $note);
 
@@ -51,8 +50,10 @@ try {
         $title = $validated_title;
         $note = $validated_note;
         $stmt->execute();
-
         $feedback['succes'] = "New records created successfully.";
+
+        unset($stmt);
+        unset($conn);
     }
 } catch (PDOException $e) {
     $feedback['pdoError'] = $e->getMessage();
@@ -62,6 +63,3 @@ try {
 if (count($feedback) > 0) {
     echo json_encode($feedback, JSON_PRETTY_PRINT);
 }
-
-unset($stmt);
-unset($conn);
