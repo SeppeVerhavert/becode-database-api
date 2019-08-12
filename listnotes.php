@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 include 'keys.php';
 
 //  CONNECT TO DATABASE
@@ -17,12 +18,11 @@ try {
     $i = 0;
 
     if ($result->rowCount() > 0) {
-        echo "<table>";
         while ($row = $result->fetch()) {
             $array_result["title".$i] = $row['title'];
             $i++;
         }
-        echo json_encode($array_result);
+        print json_encode($array_result, JSON_PRETTY_PRINT); 
         unset($result);
     } else {
         $feedback['querryError'] = "No records matching your query were found.";

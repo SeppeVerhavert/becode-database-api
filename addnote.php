@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 include "keys.php";
 $feedback = [];
 
@@ -59,7 +60,7 @@ try {
 
 //  FEEDBACK
 if (count($feedback) > 0) {
-    echo json_encode($feedback);
+    echo json_encode($feedback, JSON_PRETTY_PRINT);
 }
 
 unset($stmt);
