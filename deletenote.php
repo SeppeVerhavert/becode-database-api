@@ -18,17 +18,9 @@ $title_input = $_GET['title'];
 try {
     //  DELETE
     $sql = "DELETE * FROM $tbname WHERE title='$title_input'";
-    $result = $pdo->query($sql);
-
-
-    //  REMOVE
-    if ($result->rowCount() > 0) {
-        while ($row = $result->fetch()) {
-            $array_result["title"] = $row['title'];
-            $array_result["last_update"] = $row['last_update'];
-            $array_result["note"] = $row['note'];
-        }
-        print json_encode($array_result);
+    if($sql) {
+        $result = $pdo->query($sql);
+        $feedback['succes'] = "Your note was succesfully deleted";
         unset($result);
     } else {
         $feedback['querryError'] = "No records matching your query were found.";
