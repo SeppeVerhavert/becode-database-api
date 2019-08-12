@@ -3,9 +3,6 @@ header('Content-Type: application/json');
 include 'keys.php';
 $feedback = [];
 
-//  CREATE SUPERGLOBALS
-$title_input = $_GET['title'];
-
 //  CONNECT TO DATABASE
 try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -14,12 +11,15 @@ try {
     $feedback['pdoError'] = $e->getMessage();
 }
 
-// ATTEMPT SELECT QUERRY EXECUTION
+//  GET PARAMETERS
+$title_input = $_GET['title'];
+
+// QUERY EXECUTION
 try {
-    //  SELECT
-    $sql = "SELECT * FROM $tbname WHERE title='$title_input'";
+    //  DELETE
+    $sql = "DELETE * FROM $tbname WHERE title='$title_input'";
     $result = $pdo->query($sql);
-    $array_result = [];
+
 
     //  REMOVE
     if ($result->rowCount() > 0) {
