@@ -3,12 +3,6 @@ header('Content-Type: application/json');
 include "keys.php";
 $feedback = [];
 
-//  CREATE CONNECTION
-$conn = new mysqli($servername, $username, $password);
-if ($conn->connect_error) {
-    $feedback['connectionError'] = "Connection failed";
-}
-
 //  CREATE SUPERGLOBALS
 $title_input = $_GET['title'];
 $note_input = $_POST['note'];
@@ -56,10 +50,10 @@ try {
         unset($conn);
     }
 } catch (PDOException $e) {
-    $feedback['pdoError'] = $e->getMessage();
+    $feedback['stmtError'] = $e->getMessage();
 }
 
 //  FEEDBACK
 if (count($feedback) > 0) {
-    echo json_encode($feedback, JSON_PRETTY_PRINT);
+    echo json_encode($feedback);
 }

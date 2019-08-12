@@ -3,6 +3,9 @@ header('Content-Type: application/json');
 include 'keys.php';
 $feedback = [];
 
+//  CREATE SUPERGLOBALS
+$title_input = $_GET['title'];
+
 //  CONNECT TO DATABASE
 try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -13,17 +16,19 @@ try {
 
 // ATTEMPT SELECT QUERRY EXECUTION
 try {
-    $sql = "SELECT * FROM $tbname";
+    $sql = "SELECT * FROM $tbname WHERE 'title'=$title_input";
     $result = $pdo->query($sql);
     $array_result = [];
     $i = 0;
 
     if ($result->rowCount() > 0) {
         while ($row = $result->fetch()) {
-            $array_result["title".$i] = $row['title'];
+            $array_result["title"] = $row['title'];
+            $array_result["last_update"] = $row['last_update'];
+            $array_result["note"] = $row['note'];
             $i++;
         }
-        print json_encode($array_result); 
+        print json_encode($array_result);
         unset($result);
     } else {
         $feedback['querryError'] = "No records matching your query were found.";
