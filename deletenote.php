@@ -14,7 +14,7 @@ if (empty($title_input)) {
             $feedback['succes'] = $title_input . " was succesfully deleted";
             unset($result);
         } else {
-            $feedback['querryError'] = "No records matching your query were found.";
+            $feedback['querryError'] = "No record matching your query could be found.";
         }
     } catch (PDOException $e) {
         $feedback['sqlError'] = $e->getMessage();

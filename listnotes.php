@@ -18,7 +18,7 @@ try {
         print json_encode($array_result); 
         unset($result);
     } else {
-        $feedback['querryError'] = "No records matching your query were found.";
+        $feedback['querryError'] = "No records found.";
     }
 } catch (PDOException $e) {
     $feedback['sqlError'] = $e->getMessage();
