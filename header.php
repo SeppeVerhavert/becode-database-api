@@ -10,4 +10,8 @@ try {
 } catch (PDOException $e) {
     $feedback['pdoError'] = $e->getMessage();
 }
+
+//  CREATE SUPERGLOBALS
+$title_input = $_GET['title'];
+$note_input = $_POST['note'];
 ?>

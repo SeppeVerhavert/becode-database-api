@@ -1,10 +1,6 @@
 <?php
 include 'header.php';
 
-//  CREATE SUPERGLOBALS
-$title_input = $_GET['title'];
-$note_input = $_POST['note'];
-
 try {
     // PREPARE
     $stmt = $pdo->prepare("INSERT INTO $tbname (title, note) VALUES (:title, :note)");

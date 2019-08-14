@@ -1,9 +1,6 @@
 <?php
 include 'header.php';
 
-//  GET PARAMETERS
-$title_input = $_GET['title'];
-
 // ATTEMPT SELECT QUERRY EXECUTION
 try {
     // SELECT ALL
