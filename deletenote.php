@@ -17,10 +17,10 @@ $title_input = $_GET['title'];
 // QUERY EXECUTION
 try {
     //  DELETE
-    $sql = "DELETE * FROM $tbname WHERE title='$title_input'";
-    if($sql) {
+    $sql = "DELETE FROM $tbname WHERE title = `$title_input`";
+    if ($sql) {
         $result = $pdo->query($sql);
-        $feedback['succes'] = "Your note was succesfully deleted";
+        $feedback['succes'] = "Your note " . $title_input . " was succesfully deleted";
         unset($result);
     } else {
         $feedback['querryError'] = "No records matching your query were found.";
