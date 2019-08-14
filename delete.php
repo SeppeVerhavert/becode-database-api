@@ -12,7 +12,6 @@ if (empty($title_input)) {
         if ($sql) {
             $result = $pdo->query($sql);
             $feedback['succes'] = $title_input . " was succesfully deleted";
-            unset($result);
         } else {
             $feedback['querryError'] = "No record matching your query could be found.";
         }
