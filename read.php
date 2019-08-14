@@ -7,7 +7,7 @@ if (empty($title_input)) {
 } else {
     // ATTEMPT SELECT QUERRY EXECUTION
     try {
-        // SELECT ALL
+        // SELECT NOTE
         $sql = "SELECT * FROM $tbname WHERE title = '$title_input'";
         $result = $pdo->query($sql);
         $array_result = [];

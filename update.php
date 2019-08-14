@@ -5,6 +5,18 @@ include './assets/header.php';
 $newtitle_input = $_GET['newtitle'];
 $newnote_input = $_POST['newnote'];
 
+//  CHECK IF TITLE EXISTS
+$sql = "SELECT title
+        FROM $tbname
+        WHERE EXISTS title = '$title_input'";
+if ($result = $pdo->query($sql)) {
+    var_dump($result);
+    echo "title exists";
+} else {
+    echo "title does not exist";
+}
+unset($sql);
+
 //  IF EMPTY
 if (empty($newtitle_input)) {
     $newtitle_input = $title_input;
@@ -18,6 +30,7 @@ if (empty($newnote_input)) {
             $newnote_input = $row['note'];
         }
     }
+    unset($sql);
 }
 
 //  VALIDATE

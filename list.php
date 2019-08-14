@@ -16,7 +16,6 @@ try {
             $i++;
         }
         print json_encode($array_result); 
-        unset($result);
     } else {
         $feedback['querryError'] = "No records found.";
     }
