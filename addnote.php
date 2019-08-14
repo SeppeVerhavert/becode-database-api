@@ -1,19 +1,13 @@
 <?php
-header('Content-Type: application/json');
-include 'keys.php';
-$feedback = [];
+include 'header.php';
 
 //  CREATE SUPERGLOBALS
 $title_input = $_GET['title'];
 $note_input = $_POST['note'];
 
 try {
-
     // PREPARE
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    $stmt = $conn->prepare("INSERT INTO $tbname (title, note) VALUES (:title, :note)");
+    $stmt = $pdo->prepare("INSERT INTO $tbname (title, note) VALUES (:title, :note)");
     $stmt->bindParam(':title', $title);
     $stmt->bindParam(':note', $note);
 
@@ -47,13 +41,10 @@ try {
         $feedback['succes'] = "New records created successfully.";
 
         unset($stmt);
-        unset($conn);
     }
 } catch (PDOException $e) {
     $feedback['stmtError'] = $e->getMessage();
 }
 
 //  FEEDBACK
-if (count($feedback) > 0) {
-    echo json_encode($feedback);
-}
+include 'feedback.php';

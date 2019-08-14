@@ -1,15 +1,5 @@
 <?php
-header('Content-Type: application/json');
-include 'keys.php';
-$feedback = [];
-
-//  CONNECT TO DATABASE
-try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    $feedback['pdoError'] = $e->getMessage();
-}
+include 'header.php';
 
 // ATTEMPT SELECT QUERRY EXECUTION
 try {
@@ -34,9 +24,5 @@ try {
     $feedback['sqlError'] = $e->getMessage();
 }
 
-//  FEEDBACK
-if (count($feedback) > 0) {
-    echo json_encode($feedback);
-}
+include 'feedback.php';
 
-unset($pdo);
