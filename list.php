@@ -12,7 +12,7 @@ try {
     // SHOW RESULT
     if ($result->rowCount() > 0) {
         while ($row = $result->fetch()) {
-            $array_result["title".$i] = $row['title'];
+            $array_result[$row['title']] = $row['note'];
             $i++;
         }
         print json_encode($array_result); 
