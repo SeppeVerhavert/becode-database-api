@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+include './assets/header.php';
 
 //  VALIDATE
 if (empty($title_input)) {
@@ -28,4 +28,4 @@ if (empty($title_input)) {
     }
 }
 
-include 'feedback.php';
+include './assets/feedback.php';

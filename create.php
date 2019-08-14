@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+include './assets/header.php';
 
 try {
     // PREPARE
@@ -43,4 +43,4 @@ try {
 }
 
 //  FEEDBACK
-include 'feedback.php';
+include './assets/feedback.php';

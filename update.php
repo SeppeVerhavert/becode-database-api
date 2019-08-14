@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+include './assets/header.php';
 
 //  PARAMETERS
 $newtitle_input = $_GET['newtitle'];
@@ -38,4 +38,4 @@ if (empty($title_input)) {
     }
 }
 
-include 'feedback.php';
+include './assets/feedback.php';

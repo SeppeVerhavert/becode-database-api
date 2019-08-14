@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+include './assets/header.php';
 
 // ATTEMPT SELECT QUERRY EXECUTION
 try {
@@ -24,5 +24,5 @@ try {
     $feedback['sqlError'] = $e->getMessage();
 }
 
-include 'feedback.php';
+include './assets/feedback.php';
 
