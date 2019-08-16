@@ -6,14 +6,12 @@ $newtitle_input = $_GET['newtitle'];
 $newnote_input = $_POST['newnote'];
 
 //  CHECK IF TITLE EXISTS
-$sql = "SELECT title
-        FROM $tbname
-        WHERE EXISTS title = '$title_input'";
-if ($result = $pdo->query($sql)) {
-    var_dump($result);
-    echo "title exists";
-} else {
-    echo "title does not exist";
+$sql = "SELECT * FROM $tbname WHERE title = '$title_input'";
+$result = $pdo->query($sql);
+if (!$result->rowCount() > 0) {
+    $feedback['querryError'] = "Title does not exist.";
+    include './assets/feedback.php';
+    exit;
 }
 unset($sql);
 
@@ -30,8 +28,8 @@ if (empty($newnote_input)) {
             $newnote_input = $row['note'];
         }
     }
-    unset($sql);
 }
+unset($sql);
 
 //  VALIDATE
 if (empty($title_input)) {
