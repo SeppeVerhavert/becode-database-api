@@ -1,5 +1,5 @@
 <?php
-// header('Content-Type: application/json');
+header('Content-Type: application/json');
 include 'keys.php';
 $feedback = [];
 
@@ -12,6 +12,10 @@ try {
 }
 
 //  CREATE SUPERGLOBALS
-$title_input = $_GET['title'];
-$note_input = $_POST['note'];
+$unsanitized_title = $_GET['title'];
+$unsanitized_note = $_POST['note'];
+
+//  SANTIZE
+$title_input = filter_var($unsanitized_title, FILTER_SANITIZE_STRING);
+$note_input = filter_var($unsanitized_note, FILTER_SANITIZE_STRING);
 ?>

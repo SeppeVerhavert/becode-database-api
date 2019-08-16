@@ -5,5 +5,6 @@ if (count($feedback) > 0) {
 
 unset($result);
 unset($sql);
+unset($stmt);
 unset($pdo);
 ?>

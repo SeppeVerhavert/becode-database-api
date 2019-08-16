@@ -1,4 +1,5 @@
 <?php
+//  SANITIZE
 include './assets/header.php';
 
 try {
@@ -7,36 +8,26 @@ try {
     $stmt->bindParam(':title', $title);
     $stmt->bindParam(':note', $note);
 
-
-    //  SANITIIZE
-    $clean_title = filter_var($title_input, FILTER_SANITIZE_STRING);
-    $clean_note = filter_var($note_input, FILTER_SANITIZE_STRING);
-
-
     //  VALIDATE
-    if (empty($clean_title)) {
+    if (empty($title_input)) {
         $feedback['validate_titleError'] = "please fill in a title.";
-    } else if (strlen($clean_title) > 30) {
+    } else if (strlen($title_input) > 30) {
         $feedback['validate_titleError'] = "Title can't be longer than 30 characters.";
     } else {
-        $validated_title = $clean_title;
+        $validated_title = $title_input;
     }
-
 
     //  EXECUTE
-    if (empty($clean_note)) {
+    if (empty($note_input)) {
         $feedback['validate_noteError'] = "Your note is empty.";
     } else {
-        $validated_note = $clean_note;
+        $validated_note = $note_input;
     }
     if (count($feedback) <= 0) {
-
         $title = $validated_title;
         $note = $validated_note;
         $stmt->execute();
         $feedback['succes'] = "New records created successfully.";
-
-        unset($stmt);
     }
 } catch (PDOException $e) {
     $feedback['stmtError'] = $e->getMessage();
