@@ -12,10 +12,10 @@ try {
     // SHOW RESULT
     if ($result->rowCount() > 0) {
         while ($row = $result->fetch()) {
-            $array_result[$row['title']] = $row['note'];
+            $array_result[$i] = $row['title'];
             $i++;
         }
-        print json_encode($array_result); 
+        // print json_encode($array_result); 
     } else {
         $feedback['querryError'] = "No records found.";
     }
